@@ -1,0 +1,9 @@
+-r requirements.txt
+pytest>=8.0
+pytest-cov>=5.0
+ruff>=0.6
+rouge-score>=0.1.2
+bert-score>=0.3.13
+matplotlib>=3.8
+seaborn>=0.13
+pandas>=2.2

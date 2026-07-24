@@ -34,7 +34,7 @@ def run(text_input, file_input, output_lang_label, length_label):
     return result["summary"] + stats
 
 
-with gr.Blocks(title="Multilingual Text Summarizer", theme=gr.themes.Soft()) as demo:
+with gr.Blocks() as demo:
     gr.Markdown(
         """
         # 📝 Multilingual Text Summarizer
@@ -78,4 +78,4 @@ with gr.Blocks(title="Multilingual Text Summarizer", theme=gr.themes.Soft()) as 
 
 
 if __name__ == "__main__":
-    demo.launch()
+    demo.launch(title="Multilingual Text Summarizer", theme=gr.themes.Soft())

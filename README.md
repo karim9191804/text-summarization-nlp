@@ -12,6 +12,10 @@ pipeline that tests every change and redeploys the live demo automatically.
 
 **Live demo:** https://huggingface.co/spaces/karimhoucem/text_summarization
 
+[![App screenshot](assets/screenshot.png)](https://huggingface.co/spaces/karimhoucem/text_summarization)
+
+*French input, medium-length English summary — try it live on the link above.*
+
 ## Why this project
 
 Most summarization demos wrap a single English model and stop there. This

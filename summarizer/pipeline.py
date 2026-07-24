@@ -11,10 +11,33 @@ class SummarizationError(ValueError):
 
 
 @lru_cache(maxsize=1)
-def get_summarizer():
-    from transformers import pipeline
+def _load_model():
+    from transformers import BartForConditionalGeneration, BartTokenizer
 
-    return pipeline("summarization", model=MODEL_NAME)
+    tokenizer = BartTokenizer.from_pretrained(MODEL_NAME)
+    model = BartForConditionalGeneration.from_pretrained(MODEL_NAME)
+    return tokenizer, model
+
+
+def get_summarizer():
+    tokenizer, model = _load_model()
+
+    def _summarize(text, *, min_length, max_length, do_sample=False):
+        inputs = tokenizer([text], max_length=1024, truncation=True, return_tensors="pt")
+        generated_ids = model.generate(
+            inputs["input_ids"],
+            attention_mask=inputs["attention_mask"],
+            min_length=min_length,
+            max_length=max_length,
+            num_beams=4,
+            length_penalty=2.0,
+            no_repeat_ngram_size=3,
+            early_stopping=True,
+        )
+        summary_text = tokenizer.decode(generated_ids[0], skip_special_tokens=True)
+        return [{"summary_text": summary_text}]
+
+    return _summarize
 
 
 def detect_language(text: str) -> str:
